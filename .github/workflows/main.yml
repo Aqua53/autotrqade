@@ -28,6 +28,6 @@ jobs:
       # 4. Menjalankan file Python Anda
       - name: Run Bot Trading
         env:
-          # Mengambil pesan Telegram dari Make.com dan menyimpannya di variabel PESAN_TELEGRAM
           PESAN_TELEGRAM: ${{ github.event.client_payload.message }}
-        run: python main.py # <--- GANTI dengan nama file .py Anda
+        # Pastikan 'bot.py' diganti dengan nama file asli kamu yang ada di repo
+        run: python main.py
