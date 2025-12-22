@@ -1,1 +1,33 @@
+name: Bot Trading Signal Telegram
 
+# Menunggu instruksi dari luar (Make.com)
+on:
+  repository_dispatch:
+    types: [signal_masuk]
+
+jobs:
+  jalankan-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Mengambil kode dari repository Anda
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Menyiapkan Python di komputer GitHub
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # 3. Menginstall library (jika Anda punya file requirements.txt)
+      - name: Install Dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # 4. Menjalankan file Python Anda
+      - name: Run Bot Trading
+        env:
+          # Mengambil pesan Telegram dari Make.com dan menyimpannya di variabel PESAN_TELEGRAM
+          PESAN_TELEGRAM: ${{ github.event.client_payload.message }}
+        run: python main.py # <--- GANTI dengan nama file .py Anda
